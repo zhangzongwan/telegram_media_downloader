@@ -720,6 +720,7 @@ class Application:
                 res = os.path.join(res, media_datetime)
             elif prefix == "media_type":
                 res = os.path.join(res, media_type)
+
         return res
 
     def get_file_name(

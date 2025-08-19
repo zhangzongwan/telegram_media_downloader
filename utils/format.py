@@ -273,6 +273,26 @@ def validate_title(title: str) -> str:
     return new_title
 
 
+def validate_title_with_one_underline(title: str) -> str:
+    """Fix if title validation fails and condense multiple underscores into one
+
+    Parameters
+    ----------
+    title: str
+        Chat title
+    """
+    # 定义不允许的字符正则表达式
+    r_str = r"[/\\:*?\"<>|\n]"  # '/ \ : * ? " < > |'
+
+    # 用下划线替换不允许的字符
+    new_title = re.sub(r_str, "_", title)
+
+    # 将多个连续的下划线替换为一个下划线
+    new_title = re.sub(r"_+", "_", new_title)
+
+    return new_title
+
+
 def create_progress_bar(progress, total_bars=10):
     """
     example

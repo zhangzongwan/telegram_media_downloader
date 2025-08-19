@@ -28,7 +28,7 @@ from module.pyrogram_extension import (
     upload_telegram_chat,
 )
 from module.web import init_web
-from utils.format import truncate_filename, validate_title
+from utils.format import truncate_filename, validate_title, validate_title_with_one_underline
 from utils.log import LogFilter
 from utils.meta import print_meta
 from utils.meta_data import MetaData
@@ -247,12 +247,21 @@ async def _get_media_meta(
             app.get_file_name(message.id, file_name, caption) + file_name_suffix
         )
 
-        file_save_path = app.get_file_save_path(_type, dirname, datetime_dir_name)
 
-        temp_file_name = os.path.join(app.temp_save_path, dirname, gen_file_name)
-
-        file_name = os.path.join(file_save_path, gen_file_name)
-    return truncate_filename(file_name), truncate_filename(temp_file_name), file_format
+        if caption:
+            caption = validate_title(caption)
+            file_save_path = app.get_file_save_path(_type, dirname, datetime_dir_name)
+            file_save_path = os.path.join(file_save_path, caption)
+            temp_file_name = os.path.join(app.temp_save_path, dirname, gen_file_name)
+            file_name = os.path.join(file_save_path, gen_file_name)
+            return truncate_filename(file_name), truncate_filename(temp_file_name), file_format
+        else:
+            date = message.date.strftime("%Y%m%d%H%M%S")
+            file_save_path = app.get_file_save_path(_type, dirname, datetime_dir_name)
+            file_save_path = os.path.join(file_save_path, date)
+            temp_file_name = os.path.join(app.temp_save_path, dirname, gen_file_name)
+            file_name = os.path.join(file_save_path, gen_file_name)
+            return truncate_filename(file_name), truncate_filename(temp_file_name), file_format
 
 
 async def add_download_task(

@@ -1,8 +1,7 @@
-api_hash: your_api_hash
-api_id: your_api_id
-chat:
-- chat_id: telegram_chat_id
-  last_read_message_id: 0
+api_hash: 0ce8728e2d70a56f980699aa967222d5
+api_id: 26980618
+bot_token: 8472971528:AAF7RpXLLCybkRF4RoGB0xnwV0x7XWMei5Y
+
 file_formats:
   audio:
   - all
@@ -21,4 +20,5 @@ media_types:
 - voice
 - video_note
 # in linux please use /
-# save_path: E:\github\telegram_media_downloader
+save_path: D:\tmd
+language: EN
